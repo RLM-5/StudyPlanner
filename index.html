@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Planner, version 0.33</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<!-- ==================== HEADER ==================== -->
+<div id="P_Header">
+  <div class="header-row">
+    <span class="header-row-label">Tags:</span>
+    <label class="track-tag track-MP"><input type="checkbox" id="tag-MP" checked> MP</label>
+    <label class="track-tag track-TP"><input type="checkbox" id="tag-TP" checked> TP</label>
+    <label class="track-tag track-NP"><input type="checkbox" id="tag-NP" checked> NP</label>
+    <label class="track-tag track-SE"><input type="checkbox" id="tag-SE" checked> SE</label>
+    <label class="track-tag track-AS"><input type="checkbox" id="tag-AS" checked> AS</label>
+    <label class="track-tag track-MC"><input type="checkbox" id="tag-MC" checked> MC</label>
+    <label class="track-tag track-GP"><input type="checkbox" id="tag-GP" checked> GP</label>
+    <div class="sep"></div>
+    <label class="track-tag track-Prog"><input type="checkbox" id="tag-Prog" checked> Prog</label>
+    <label class="track-tag track-TO"><input type="checkbox" id="tag-TO" checked> Teaching and Outreach</label>
+    <label class="track-tag track-Proj"><input type="checkbox" id="tag-Proj" checked> Proj</label>
+  </div>
+  <div class="header-row">
+    <span class="header-row-label">Panes:</span>
+    <label id="label-show-choices"><input type="checkbox" id="show-choices"> Your Choices</label>
+    <label id="label-show-hidden"><input type="checkbox" id="show-hidden"> Hidden courses</label>
+    <div class="sep"></div>
+    <label id="label-show-description"><input type="checkbox" id="show-description" checked> Course Description</label>
+  </div>
+  <div class="header-row">
+    <label id="label-global-show-code"><input type="checkbox" id="global-show-code"> Name+Code</label>
+    <div class="sep"></div>
+    <span class="header-row-label">Master starts:</span>
+    <select id="master-start-year" style="background:#222;color:#eee;border:1px solid #555;border-radius:4px;padding:2px 4px;font-size:12px;">
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026" selected>2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+    </select>
+    <label id="label-show-parity"><input type="checkbox" id="show-parity-issues"> Parity Issues</label>
+    <div class="sep"></div>
+    <span class="header-row-label">Zoom:</span>
+    <button type="button" id="btn-zoom-out" style="padding:2px 8px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">−</button>
+    <input type="range" id="zoom-range" min="50" max="150" value="100" step="5" style="width:100px;vertical-align:middle;">
+    <span id="zoom-label" style="min-width:3em;color:#ccc;">100%</span>
+    <button type="button" id="btn-zoom-in" style="padding:2px 8px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">+</button>
+  </div>
+  <div class="header-row">
+    <span class="header-row-label">Snap:</span>
+    <label><input type="radio" name="magnet" value="1" checked> 1</label>
+    <label><input type="radio" name="magnet" value="0.5"> ½</label>
+    <label><input type="radio" name="magnet" value="0.25"> ¼</label>
+    <div class="sep"></div>
+    <button type="button" id="btn-undo" data-tip="Undo" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;font-size:16px;line-height:1;">↶</button>
+    <button type="button" id="btn-redo" data-tip="Redo" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;font-size:16px;line-height:1;">↷</button>
+    <span class="header-row-label">Layout:</span>
+    <select id="layout-mode" style="background:#222;color:#eee;border:1px solid #555;border-radius:4px;padding:2px 4px;font-size:12px;">
+      <option value="stack">Stack (left)</option>
+      <option value="absolute">Absolute</option>
+      <option value="relative">Auto without gaps</option>
+    </select>
+    <button id="btn-remove-gaps" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">Remove gaps</button>
+    <button id="btn-recompute" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">Recompute Layout</button>
+    <button id="btn-reset-upload" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">Reset</button>
+    <div class="sep"></div>
+    <button id="btn-upload" title="First upload a *.catalog.json, then a layout JSON file" style="padding:4px 10px;cursor:pointer;background:#2a4a3a;color:#eee;border:1px solid #3a6a4a;border-radius:4px;">Upload</button>
+    <button id="btn-save" style="padding:4px 10px;cursor:pointer;background:#2a3a4a;color:#eee;border:1px solid #3a4a6a;border-radius:4px;">Save</button>
+    <div class="sep"></div>
+    <button id="btn-help" style="padding:4px 10px;cursor:pointer;background:#3a2a4a;color:#eee;border:1px solid #5a4a6a;border-radius:4px;">Help</button>
+    <button id="btn-disclaimer" style="padding:4px 10px;cursor:pointer;background:#3a2a4a;color:#eee;border:1px solid #5a4a6a;border-radius:4px;">Disclaimer</button>
+    <input type="file" id="file-upload" accept=".json,application/json" multiple style="display:none">
+  </div>
+</div>
+
+<!-- ==================== HELP OVERLAY ==================== -->
+<div id="help-overlay" aria-hidden="true">
+  <div class="help-card">
+    <h2>Help</h2>
+    <p>Most objects are left- and right- clickable — try both to learn the functionality.</p>
+    <p>Courses can be dragged. Year may change; period follows the course alternatives (flexible / multi-option courses can switch start period).</p>
+    <p><strong>Upload:</strong> load a <code>*.catalog.json</code> file first (course data), then a layout JSON file. Prefer serving the website folder so files load automatically.</p>
+    <button type="button" id="btn-help-close">Close</button>
+  </div>
+</div>
+
+<!-- ==================== DISCLAIMER OVERLAY ==================== -->
+<div id="disclaimer-overlay" aria-hidden="true">
+  <div class="help-card">
+    <h2>Disclaimer</h2>
+    <p>This website is currently under development, and errors may occur. It is intended for general guidance and exploration only. For any important decisions, please verify the information against official sources.</p>
+    <button type="button" id="btn-disclaimer-close">Close</button>
+  </div>
+</div>
+
+<!-- ==================== WORKSPACE: fixed gutter | scrolling bulk ==================== -->
+<div id="workspace">
+  <div id="bulk-gutter" aria-hidden="true"><div id="bulk-gutter-inner"></div></div>
+  <div id="P_Bulk">
+    <div id="bulk-canvas"></div>
+  </div>
+</div>
+
+<!-- ==================== CHOICES (overlay) ==================== -->
+<div id="P_Choices">
+  <div class="panel-body">
+    <div class="choices-header">
+      <h3>Your Choices</h3>
+      <button type="button" id="btn-copy-choices" class="icon-btn" title="Copy to clipboard" aria-label="Copy choices">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="8" y="8" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M4 16V4a2 2 0 0 1 2-2h10"></path>
+        </svg>
+      </button>
+    </div>
+    <ul id="choices-list"></ul>
+    <p style="margin-top:16px;font-size:12px;color:#888">Selected courses appear here. Click a course box or use the right-click menu.</p>
+  </div>
+  <div class="panel-resizer" data-panel="P_Choices" data-side="left"></div>
+</div>
+
+<!-- ==================== HIDDEN COURSES (overlay) ==================== -->
+<div id="P_Hidden">
+  <div class="panel-body">
+    <h3>Hidden courses</h3>
+    <ul id="hidden-list"></ul>
+    <p class="hidden-hint">Left-click = description · Right-click = visibility options</p>
+  </div>
+  <div class="panel-resizer" data-panel="P_Hidden" data-side="left"></div>
+</div>
+
+<!-- ==================== DESCRIPTION (overlay) ==================== -->
+<div id="P_Description">
+  <div class="panel-resizer" data-panel="P_Description" data-side="right"></div>
+  <div class="panel-body">
+    <h3>Course Description</h3>
+    <div id="desc-content">
+      <p style="color:#888">Click a course box to see its details.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONTEXT MENU ==================== -->
+<div id="context-menu">
+  <button data-action="select"><span class="menu-check" data-check="select"></span>Select</button>
+  <button data-action="remove"><span class="menu-check menu-check-spacer"></span>Hide</button>
+  <button data-action="always-visible"><span class="menu-check" data-check="always-visible"></span>Always visible</button>
+  <button data-action="lock"><span class="menu-check" data-check="lock"></span>Lock position</button>
+  <div class="menu-sep"></div>
+  <div class="menu-label">Box colour</div>
+  <div class="color-row" id="color-swatches"></div>
+  <div class="menu-sep"></div>
+  <div class="menu-label">Label</div>
+  <button data-action="label-auto"><span class="menu-check" data-check="label-auto"></span>Automatic</button>
+  <button data-action="label-name"><span class="menu-check" data-check="label-name"></span>Name only</button>
+  <button data-action="label-both"><span class="menu-check" data-check="label-both"></span>Name + Code</button>
+</div>
+
+<!-- ==================== HIDDEN-COURSE CONTEXT MENU ==================== -->
+<div id="hidden-context-menu">
+  <button data-action="make-visible">Make visible</button>
+  <button data-action="restore-default" id="hidden-restore-default">Restore default visibility</button>
+</div>
+
+<!-- ==================== DESCRIPTION FIELD TOGGLES ==================== -->
+<div id="desc-fields-menu"></div>
+
+<!-- ==================== TRACK COLOUR MENU ==================== -->
+<div id="track-color-menu">
+  <div class="menu-label" id="track-color-title">Track colour</div>
+  <div class="color-row" id="track-color-swatches"></div>
+  <button type="button" data-action="reset-track-color" style="width:100%;text-align:left;padding:6px 12px;background:none;border:none;color:#eee;cursor:pointer;font-size:13px;">Reset to default</button>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1239 @@
+{
+  "version": 2,
+  "type": "planner-config",
+  "parents": [
+    "MaFyCourses.catalog.json"
+  ],
+  "savedAt": "2026-07-27T00:12:43.020Z",
+  "courses": [
+    {
+      "Code": "1FA011",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA030",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 65,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA163",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 8
+      }
+    },
+    {
+      "Code": "1FA164",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA252",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 9,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA257",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA352",
+      "CanJumpOver": false,
+      "BoxColor": "#2d4a2d",
+      "GridPosition": {
+        "col": 12,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1MA007",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 12,
+        "row": 8
+      }
+    },
+    {
+      "Code": "1MA259",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1MA531",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA140",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 9,
+        "row": 9
+      }
+    },
+    {
+      "Code": "1FA156",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 10,
+        "row": 9
+      }
+    },
+    {
+      "Code": "1FA160",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA166",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1FA353",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 13,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA155",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1MA056",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1MA335",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1MA336",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1SV037",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA157",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA158",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA597",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 17,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1MA331",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA008",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA028",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 20,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA153",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 22,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1MA036",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 19,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA009",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1FA598",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 12,
+        "row": 18
+      }
+    },
+    {
+      "Code": "1MA325",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 19,
+        "row": 18
+      }
+    },
+    {
+      "Code": "1FA029",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 56,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1FA002",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 5,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA453",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 8
+      }
+    },
+    {
+      "Code": "1FA045",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 2,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA370",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA019",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA227",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 2,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA570",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 0,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA006",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA152",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 6,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA361",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 2,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA360",
+      "CanJumpOver": false,
+      "BoxColor": "#2d4a2d",
+      "GridPosition": {
+        "col": 10,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA694",
+      "CanJumpOver": false,
+      "Visibility": "Visible",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 7,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1FA193",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 11,
+        "row": 22
+      }
+    },
+    {
+      "Code": "1FA195",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1FA565",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 6,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1FA566",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 10,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA209",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a4a",
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA018",
+      "CanJumpOver": false,
+      "BoxColor": "#0e7480",
+      "GridPosition": {
+        "col": 6,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA346",
+      "CanJumpOver": false,
+      "BoxColor": "#1e6b3a",
+      "GridPosition": {
+        "col": 8,
+        "row": 9
+      }
+    },
+    {
+      "Code": "1FA350",
+      "CanJumpOver": false,
+      "BoxColor": "#2d4a2d",
+      "GridPosition": {
+        "col": 9,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1FA010",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 12,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA347",
+      "CanJumpOver": false,
+      "BoxColor": "#2d4a2d",
+      "GridPosition": {
+        "col": 9,
+        "row": 10
+      }
+    },
+    {
+      "Code": "1FA451",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 13,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA336",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a4a",
+      "GridPosition": {
+        "col": 16,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA348",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 13,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA355",
+      "CanJumpOver": false,
+      "BoxColor": "#2d4a2d",
+      "GridPosition": {
+        "col": 61,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA404",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA571",
+      "CanJumpOver": false,
+      "BoxColor": "#4a3a1e",
+      "GridPosition": {
+        "col": 14,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA032",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA258",
+      "CanJumpOver": false,
+      "BoxColor": "#1e6b3a",
+      "GridPosition": {
+        "col": 9,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1TE043",
+      "CanJumpOver": false,
+      "BoxColor": "#8a5a1a",
+      "GridPosition": {
+        "col": 15,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1TE655",
+      "CanJumpOver": false,
+      "BoxColor": "#8a5a1a",
+      "GridPosition": {
+        "col": 16,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA590",
+      "CanJumpOver": false,
+      "BoxColor": "#4a3a1e",
+      "GridPosition": {
+        "col": 14,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1MA256",
+      "CanJumpOver": false,
+      "BoxColor": "#1e4a5a",
+      "GridPosition": {
+        "col": 4,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1FA033",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 8,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA253",
+      "CanJumpOver": false,
+      "BoxColor": "#1e6b3a",
+      "GridPosition": {
+        "col": 9,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1TE028",
+      "CanJumpOver": false,
+      "BoxColor": "#8a5a1a",
+      "GridPosition": {
+        "col": 14,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1TE724",
+      "CanJumpOver": false,
+      "BoxColor": "#8a5a1a",
+      "GridPosition": {
+        "col": 13,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1FA211",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA225",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA255",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1FA262",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1FA204",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 24,
+        "row": 9
+      }
+    },
+    {
+      "Code": "1FA223",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA256",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1FA226",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1FA203",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 24,
+        "row": 11
+      }
+    },
+    {
+      "Code": "1FA260",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 61,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1ME400",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1ME405",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1ME414",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1ME418",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1ME428",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1ME415",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1TV028",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1ME038",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1ME406",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 62,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1ME421",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1ME408",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1GV006",
+      "CanJumpOver": false,
+      "BoxColor": "#8a2a5a",
+      "GridPosition": {
+        "col": 1,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1ME404",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1ME416",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 66,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1ME425",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 61,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1ME422",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 18
+      }
+    },
+    {
+      "Code": "1ME411",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 52,
+        "row": 22
+      }
+    },
+    {
+      "Code": "1ME426",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 49,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1ME436",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 49,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1ME446",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 66,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1GE017",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1GE039",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1GV014",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1GV219",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1TV445",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 66,
+        "row": 12
+      }
+    },
+    {
+      "Code": "1GE009",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1GE049",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1GE063",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1MP022",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1MP024",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 66,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1TD184",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1TD354",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 13
+      }
+    },
+    {
+      "Code": "1GE035",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1GE048",
+      "CanJumpOver": false,
+      "BoxColor": "#4a3a1e",
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1GE053",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1MP032",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1MP034",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1TD062",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 17,
+        "row": 14
+      }
+    },
+    {
+      "Code": "1GE016",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 61,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1GE038",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 61,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1GE068",
+      "CanJumpOver": false,
+      "BoxColor": "#4a3a1e",
+      "GridPosition": {
+        "col": 63,
+        "row": 15
+      }
+    },
+    {
+      "Code": "1GE031",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 60,
+        "row": 17
+      }
+    },
+    {
+      "Code": "1GE052",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 65,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1GE070",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1GE029",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 61,
+        "row": 18
+      }
+    },
+    {
+      "Code": "1GE069",
+      "CanJumpOver": false,
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 66,
+        "row": 16
+      }
+    },
+    {
+      "Code": "1GE030",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 63,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1GE032",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 64,
+        "row": 23
+      }
+    },
+    {
+      "Code": "1GE034",
+      "CanJumpOver": false,
+      "Visibility": "Hidden",
+      "BoxColor": null,
+      "GridPosition": {
+        "col": 49,
+        "row": 23
+      }
+    }
+  ],
+  "selected": [
+    "1FA404",
+    "1FA252",
+    "1FA346",
+    "1FA032",
+    "1FA258",
+    "1FA033",
+    "1FA253",
+    "1FA453",
+    "1FA370",
+    "1FA002",
+    "1FA006",
+    "1FA018",
+    "1FA140",
+    "1FA152"
+  ],
+  "activeTags": [
+    "TO",
+    "Prog",
+    "Proj",
+    "SE"
+  ],
+  "globalShowCode": false,
+  "colorScheme": {
+    "MP": "#2f3d6b",
+    "TP": "#1e6b3a",
+    "NP": "#2d4a2d",
+    "SE": "#6b4a1a",
+    "AS": "#1a3558",
+    "MC": "#1e4a5a",
+    "GP": "#4a3a1e",
+    "Project": "#6b2a8a",
+    "Programming": "#0e7480",
+    "Pedagogy": "#8a2a5a",
+    "Intro": "#4a5568",
+    "Default": "#333844"
+  },
+  "ui": {
+    "showChoices": false,
+    "showHidden": false,
+    "showDescription": false,
+    "bulkScrollLeft": 1425,
+    "bulkScrollTop": 359
+  },
+  "panelWidths": {
+    "P_Choices": 316,
+    "P_Hidden": 492,
+    "P_Description": 318
+  }
+}

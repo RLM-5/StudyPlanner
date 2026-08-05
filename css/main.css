@@ -1,0 +1,899 @@
+:root {
+    --five-width: 80px;
+    --period-height: 48px;
+    --matrix-cols: 40;
+    --matrix-rows: 24;
+    --label-cols: 2;          /* reserved left; courses start at visual col-2 */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+    background: #111;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Panels ---------- */
+  #P_Header {
+    flex: 0 0 auto;           /* height follows content */
+    background: #1a1a2e;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 10px;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+    font-size: 12px;
+    user-select: none;
+  }
+
+  #P_Header .header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+
+  #P_Header .header-row-label {
+    font-weight: 700;
+    margin-right: 2px;
+    color: #9cf;
+    white-space: nowrap;
+  }
+
+  #P_Header label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  /* Track tags: order MP→…→GP; background set by JS from colorScheme */
+  #P_Header label.track-tag {
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  #P_Header button {
+    padding: 3px 8px !important;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  #P_Header .sep {
+    width: 1px;
+    height: 18px;
+    background: #444;
+    margin: 0 2px;
+    flex-shrink: 0;
+  }
+
+  /* Workspace fills remaining height under header; gutter | bulk side by side */
+  #workspace {
+    flex: 1 1 auto;
+    min-height: 0;            /* critical for flex children to scroll */
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+  }
+
+  #bulk-gutter {
+    flex: 0 0 calc(var(--five-width, 80px) * var(--label-cols, 2));
+    width: calc(var(--five-width, 80px) * var(--label-cols, 2));
+    min-width: calc(var(--five-width, 80px) * var(--label-cols, 2));
+    max-width: calc(var(--five-width, 80px) * var(--label-cols, 2));
+    position: relative;
+    overflow: hidden;
+    background: #0a0a10;
+    z-index: 5;
+    pointer-events: none;
+    align-self: stretch;
+  }
+
+  #P_Bulk {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    background: #000;
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  #bulk-canvas {
+    position: relative;
+    /* size set by JS */
+  }
+
+  /* horizontal lines */
+  .grid-line {
+    position: absolute;
+    height: 0;
+    pointer-events: none;
+  }
+  .grid-line.thick   { left: 0; right: 0; border-top: 3px solid #fff; }
+  .grid-line.medium  { right: 0; border-top: 2px solid #ccc; }
+  .grid-line.thin    { right: 0; border-top: 1px solid #666; }
+
+  /* left gutter labels (compact) */
+  .grid-label {
+    position: absolute;
+    pointer-events: none;
+    color: #aaa;
+    font-size: 9px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .grid-label.year {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9cf;
+  }
+  .grid-label.season {
+    font-size: 9px;
+    color: #8a8;
+  }
+  .grid-label.period {
+    font-size: 9px;
+    color: #bbb;
+    text-align: right;
+  }
+
+  /* course boxes */
+  .course-box {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3px 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: grab;
+    user-select: none;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: box-shadow 0.15s, outline 0.15s;
+    overflow: hidden;
+    line-height: 1.2;
+  }
+  .course-box:active { cursor: grabbing; }
+  .course-box.selected {
+    outline: 3px solid #ffcc00;
+    outline-offset: 2px;
+    z-index: 50 !important;
+  }
+  .course-box.locked {
+    cursor: not-allowed;
+    opacity: 0.85;
+  }
+  .course-box.dragging {
+    opacity: 0.85;
+    z-index: 100 !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+
+  /* overlay panels – top offset is set by JS via --header-h; width set by JS */
+  #P_Choices, #P_Hidden, #P_Description {
+    position: fixed;
+    top: var(--header-h, 42px);
+    bottom: 0;
+    width: 33.333%;
+    min-width: 180px;
+    max-width: 80vw;
+    color: #eee;
+    z-index: 200;
+    overflow: hidden; /* body scrolls; resizer stays fixed on the edge */
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    font-size: 14px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+  }
+  #P_Choices {
+    left: 0;
+    border-right: 1px solid #665533;
+    background: rgba(72, 62, 28, 0.94);
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  #P_Hidden {
+    left: 0;
+    border-right: 1px solid #444;
+    background: rgba(30, 30, 50, 0.94);
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  #P_Description {
+    right: 0;
+    border-left: 1px solid #444;
+    background: rgba(28, 28, 44, 0.97);
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  #P_Choices.visible, #P_Hidden.visible, #P_Description.visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto; /* panel itself must receive events (Safari) */
+  }
+
+  #P_Choices.visible *, #P_Hidden.visible *, #P_Description.visible * {
+    pointer-events: auto;
+  }
+
+  .panel-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  /* drag handles always on the free edge, independent of scroll */
+  .panel-resizer {
+    flex: 0 0 6px;
+    align-self: stretch;
+    width: 6px;
+    cursor: ew-resize;
+    z-index: 10;
+    pointer-events: auto;
+    background: transparent;
+  }
+  .panel-resizer:hover,
+  .panel-resizer.dragging {
+    background: rgba(100, 160, 220, 0.45);
+  }
+
+  #P_Choices h3, #P_Hidden h3, #P_Description h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #9cf;
+  }
+
+  #P_Hidden ul { list-style: none; }
+  #P_Hidden .hidden-section {
+    margin-bottom: 14px;
+  }
+  #P_Hidden .hidden-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #9cf;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #445;
+  }
+  #P_Hidden li {
+    padding: 6px 8px;
+    margin-bottom: 3px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #P_Hidden li:hover { background: rgba(255,255,255,0.15); }
+  #P_Hidden .hidden-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  #P_Choices ul { list-style: none; }
+  #P_Choices .year-group {
+    margin-bottom: 14px;
+  }
+  #P_Choices .year-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: #9cf;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #445;
+  }
+  #P_Choices .season-header {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8a8;
+    margin: 6px 0 3px 2px;
+  }
+  #P_Choices li {
+    display: grid;
+    /* fixed columns so vertical bars line up across all rows */
+    grid-template-columns: 3.2ch 6.4ch 1fr;
+    gap: 0;
+    align-items: baseline;
+    padding: 4px 6px 4px 3px;
+    margin-bottom: 2px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #P_Choices li:hover { background: rgba(255,255,255,0.15); }
+  #P_Choices li.selected-course {
+    background: rgba(255, 200, 0, 0.25);
+  }
+  #P_Choices .col-credits {
+    text-align: left;
+    font-family: "Consolas", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-stretch: condensed;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: #bdd;
+    padding-right: 4px;
+    overflow: hidden;
+  }
+  #P_Choices .col-code {
+    text-align: left;
+    font-family: "Consolas", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-stretch: condensed;
+    letter-spacing: -0.02em;
+    color: #ccc;
+    white-space: nowrap;
+    padding: 0 4px;
+    border-left: 1px solid #667;
+    border-right: 1px solid #667;
+  }
+  #P_Choices .col-name {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    padding-left: 5px;
+  }
+
+  #P_Description .field {
+    margin-bottom: 8px;
+  }
+  #P_Description .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  #P_Description .value {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  #P_Description .desc-section {
+    margin-bottom: 14px;
+  }
+  #P_Description .desc-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #9cf;
+    margin: 4px 0 8px;
+    border-bottom: 1px solid #445;
+    padding-bottom: 3px;
+  }
+  #P_Description .meta-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-bottom: 6px;
+    align-items: baseline;
+  }
+  #P_Description .meta-item .label {
+    display: inline;
+    margin-right: 4px;
+    text-transform: uppercase;
+  }
+  #P_Description .meta-item .value {
+    display: inline;
+    white-space: normal;
+  }
+  #P_Description .link-list a {
+    display: block;
+    color: #9cf;
+    margin-bottom: 4px;
+    word-break: break-all;
+  }
+  #desc-fields-menu {
+    position: fixed;
+    background: #2a2a3e;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 2100;
+    display: none;
+    min-width: 200px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 6px 0;
+  }
+  #desc-fields-menu .menu-label {
+    padding: 4px 12px;
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  #desc-fields-menu label {
+    display: block;
+    padding: 4px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #eee;
+  }
+  #desc-fields-menu label:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  #desc-fields-menu input {
+    margin-right: 8px;
+  }
+  #track-color-menu {
+    position: fixed;
+    background: #2a2a3e;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 2100;
+    display: none;
+    min-width: 180px;
+    padding: 6px 0;
+  }
+  #track-color-menu .menu-label {
+    padding: 4px 12px;
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  #track-color-menu .color-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px 12px 8px;
+  }
+  #track-color-menu .color-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+  #track-color-menu .color-swatch:hover,
+  #track-color-menu .color-swatch.active {
+    border-color: #fff;
+  }
+  #track-color-menu button:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* context menu */
+  #context-menu {
+    position: fixed;
+    background: #2a2a3e;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: none;
+    min-width: 160px;
+    overflow: hidden;
+  }
+  #context-menu button {
+    display: block;
+    width: 100%;
+    padding: 9px 14px;
+    background: none;
+    border: none;
+    color: #eee;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #context-menu button:hover {
+    background: #3a3a5e;
+  }
+  #context-menu button:disabled,
+  #hidden-context-menu button:disabled {
+    color: #666;
+    cursor: default;
+  }
+  #context-menu button:disabled:hover,
+  #hidden-context-menu button:disabled:hover {
+    background: none;
+  }
+  #hidden-context-menu {
+    position: fixed;
+    background: #2a2a3e;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: none;
+    min-width: 200px;
+    overflow: hidden;
+  }
+  #hidden-context-menu button {
+    display: block;
+    width: 100%;
+    padding: 9px 14px;
+    background: none;
+    border: none;
+    color: #eee;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #hidden-context-menu button:hover:not(:disabled) {
+    background: #3a3a5e;
+  }
+  #context-menu .menu-sep {
+    height: 1px;
+    background: #555;
+    margin: 4px 0;
+  }
+  #context-menu .menu-label {
+    padding: 4px 14px 2px;
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  #context-menu .color-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 4px 12px 8px;
+  }
+  #context-menu .color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+  #context-menu .color-swatch:hover,
+  #context-menu .color-swatch.active {
+    border-color: #fff;
+  }
+  .course-box .box-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* raised to 4 via JS for multi-period boxes */
+    max-width: 100%;
+    overflow: hidden;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal; /* no mid-word splits; scale font instead */
+    hyphens: none;
+    line-height: 1.15;
+    text-align: center;
+    font-size: 12px;
+  }
+  .course-box .box-code {
+    display: block;
+    flex-shrink: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: clip; /* avoid "…" eating space; we scale font instead */
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: 2px;
+    line-height: 1.15;
+    font-family: "Consolas", "SF Mono", "Roboto Mono", "Liberation Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+  /* Narrow boxes (< one matrix column): condensed mono + tighter tracking */
+  .course-box.narrow-code .box-code {
+    font-family: "Consolas", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+    font-stretch: condensed;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+
+  /* Help overlay — covers entire UI */
+  #help-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: rgba(0, 0, 0, 0.65);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #help-overlay.visible {
+    display: flex;
+  }
+  #help-overlay .help-card {
+    background: #1e1e32;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 10px;
+    max-width: 520px;
+    width: 100%;
+    padding: 28px 28px 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  #help-overlay .help-card h2 {
+    margin: 0 0 14px;
+    color: #9cf;
+    font-size: 20px;
+  }
+  #help-overlay .help-card p {
+    margin: 0 0 12px;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  #help-overlay #btn-help-close {
+    display: block;
+    margin: 20px auto 0;
+    padding: 8px 28px;
+    background: #3a4a6a;
+    color: #eee;
+    border: 1px solid #5a6a8a;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  #help-overlay #btn-help-close:hover {
+    background: #4a5a7a;
+  }
+
+  /* Short right-click tip for header controls */
+  #control-tip {
+    position: fixed;
+    z-index: 4000;
+    display: none;
+    max-width: 280px;
+    background: #2a2a3e;
+    color: #eee;
+    border: 1px solid #666;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    pointer-events: none;
+  }
+
+
+
+
+
+
+/* Gutter line / label styles (gutter layout is defined above with #workspace) */
+#bulk-gutter-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  will-change: transform;
+}
+/* thick full; medium 2/3 right-aligned; thin 1/3 right-aligned; meet canvas at right:0 */
+#bulk-gutter .gutter-line {
+  position: absolute;
+  height: 0;
+  pointer-events: none;
+  right: 0;
+}
+#bulk-gutter .gutter-line.thick {
+  left: auto;
+  width: 66.666%; /* 4/6 of gutter, right-aligned */
+  right: 0;
+  border-top: 3px solid #fff;
+}
+#bulk-gutter .gutter-line.medium {
+  left: auto;
+  width: 50%; /* 3/6 */
+  right: 0;
+  border-top: 2px solid #ccc;
+}
+#bulk-gutter .gutter-line.thin {
+  left: auto;
+  width: 33.333%; /* 2/6 */
+  right: 0;
+  border-top: 1px solid #666;
+}
+#bulk-gutter .grid-label {
+  position: absolute;
+  pointer-events: none;
+  color: #aaa;
+  font-size: 12px; /* was 9px; +30% */
+  line-height: 1;
+  white-space: nowrap;
+}
+#bulk-gutter .grid-label.year {
+  font-size: 13px; /* was 10px; +30% */
+  font-weight: 700;
+  color: #9cf;
+}
+#bulk-gutter .grid-label.season {
+  font-size: 12px;
+  color: #8a8;
+}
+#bulk-gutter .grid-label.period {
+  font-size: 12px;
+  color: #bbb;
+  text-align: right;
+}
+
+#quick-tip {
+  position: fixed;
+  z-index: 5000;
+  background: #2a2a3e;
+  color: #eee;
+  border: 1px solid #666;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  pointer-events: none;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.course-box.parity-error {
+  box-shadow: 0 0 0 2px #e33, 0 0 0 4px rgba(238,51,51,0.35);
+  outline: 2px solid #e33;
+  outline-offset: 1px;
+}
+.course-box .box-badge {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(180, 180, 190, 0.55);
+  text-shadow: none;
+  pointer-events: none;
+  z-index: 2;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+}
+.course-box .box-badge.badge-star { font-size: 10px; color: rgba(160, 165, 175, 0.5); }
+.course-box .box-badge.badge-parity { font-size: 8px; text-transform: lowercase; color: rgba(160, 165, 175, 0.5); }
+
+#context-menu button {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+#context-menu .menu-check {
+  display: inline-block;
+  width: 1.15em;
+  min-width: 1.15em;
+  margin-right: 6px;
+  color: #8c8;
+  font-weight: 700;
+  text-align: center;
+  flex: 0 0 1.15em;
+  pointer-events: none; /* clicks go to button → data-action works */
+}
+/* Only one glyph: CSS class "on", never textContent on the span */
+#context-menu .menu-check::before {
+  content: "";
+}
+#context-menu .menu-check.on::before {
+  content: "✓";
+}
+
+/* context-menu max-height safety — JS also clamps position */
+#context-menu, #hidden-context-menu, #track-color-menu, #desc-fields-menu {
+  max-height: min(70vh, calc(100vh - 16px));
+  overflow-y: auto;
+}
+
+#P_Choices .choices-summary {
+  margin-top: 12px;
+  border-top: 1px solid #445;
+  padding-top: 6px;
+}
+#P_Choices .choices-summary .summary-row {
+  opacity: 0.95;
+}
+
+#disclaimer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 5000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#disclaimer-overlay.visible {
+  display: flex;
+}
+#P_Choices .choices-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+#P_Choices .choices-header h3 {
+  margin: 0;
+  flex: 1 1 auto;
+}
+#P_Choices #btn-copy-choices.icon-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  background: #3a3520;
+  color: #e8e0c0;
+  border: 1px solid #6a6040;
+  border-radius: 6px;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 30;
+}
+#P_Choices #btn-copy-choices.icon-btn:hover {
+  background: #4a4530;
+  color: #fff;
+}
+#P_Choices #btn-copy-choices.icon-btn:active {
+  transform: scale(0.96);
+}
+#P_Choices #btn-copy-choices.icon-btn svg {
+  display: block;
+  pointer-events: none;
+}
+#P_Choices .choices-summary {
+  margin-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  padding-top: 8px;
+}
+#P_Choices .choices-summary .summary-row {
+  opacity: 0.95;
+}
+#P_Choices .choices-summary .summary-empty {
+  font-size: 12px;
+  color: #aaa;
+  padding: 4px 0;
+}
+
+#P_Choices #btn-copy-choices.icon-btn.copied {
+  color: #8d8;
+  border-color: #6a6;
+}
+#P_Choices #btn-copy-choices.icon-btn.copied svg {
+  display: none;
+}
+#P_Choices #btn-copy-choices.icon-btn.copied::after {
+  content: "✓";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+#context-menu button:disabled {
+  opacity: 0.45;
+  color: #888;
+  cursor: not-allowed;
+}
