@@ -73,7 +73,7 @@ let layoutMode = "stack";
 /** Calendar year of Fall of academic Year 1 (default 2026) */
 let masterStartYear = 2026;
 /** When true, boxes on wrong calendar parity get a red frame */
-let showParityIssues = false;
+let showParityIssues = true;
 
 /** Undo / redo stacks: each entry is a JSON string of buildSavePayload() */
 const MAX_HISTORY = 40;
