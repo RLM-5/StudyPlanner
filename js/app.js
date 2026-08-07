@@ -2864,6 +2864,28 @@ function setupEventListeners() {
   });
 
   // ---- Upload / Save ----
+  document.getElementById('catalog-select').addEventListener('change', async (event) => {
+    const selectedPath = event.target.value; // e.g., "data/NP.json"
+    if (!selectedPath) return;
+
+    // Extract just the filename (e.g., "NP.json") from the path
+    const fileName = selectedPath.split('/').pop();
+
+    try {
+      const response = await fetch(selectedPath);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const parsedData = await response.json();
+      
+      // Register the dataset using your app's actual function!
+      registerLocalJson(fileName, parsedData);
+
+    } catch (error) {
+      console.error('Failed to load dataset:', error);
+      alert('Failed to load the selected dataset.');
+    }
+  });
+
   document.getElementById("btn-upload").addEventListener("click", () => {
     document.getElementById("file-upload").click();
   });

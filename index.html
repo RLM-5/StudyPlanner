@@ -67,8 +67,21 @@
     <button id="btn-recompute" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">Recompute Layout</button>
     <button id="btn-reset-upload" style="padding:4px 10px;cursor:pointer;background:#333;color:#eee;border:1px solid #555;border-radius:4px;">Reset</button>
     <div class="sep"></div>
-    <button id="btn-upload" title="First upload a *.catalog.json, then a layout JSON file" style="padding:4px 10px;cursor:pointer;background:#2a4a3a;color:#eee;border:1px solid #3a6a4a;border-radius:4px;">Upload</button>
-    <button id="btn-save" style="padding:4px 10px;cursor:pointer;background:#2a3a4a;color:#eee;border:1px solid #3a4a6a;border-radius:4px;">Save</button>
+  </div>
+  <div class="header-row">
+    <label for="catalog-select">Pre-set options</label>
+      <select id="catalog-select">
+        <option value="data/MasterProgramme.json">Entire programme (default)</option>
+        <option value="">-- Separate tracks --</option>
+        <option value="data/MP.json">MP (Mathematical)</option>
+        <option value="data/TP.json">TP (Theoretical)</option>
+        <option value="data/NP.json">NP (Nuclear and Particle)</option>
+        <option value="data/SE.json">SE (Energy and Complex Sys)</option>
+        <option value="data/AS.json">AS (Astronomy and Space)</option>
+      </select>
+    <div class="sep"></div>
+    <button id="btn-upload" title="First upload a *.catalog.json, then a layout JSON file" style="padding:4px 10px;cursor:pointer;background:#2a4a3a;color:#eee;border:1px solid #3a6a4a;border-radius:4px;">Upload from file</button>
+    <button id="btn-save" style="padding:4px 10px;cursor:pointer;background:#2a3a4a;color:#eee;border:1px solid #3a4a6a;border-radius:4px;">Save to file</button>
     <div class="sep"></div>
     <button id="btn-help" style="padding:4px 10px;cursor:pointer;background:#3a2a4a;color:#eee;border:1px solid #5a4a6a;border-radius:4px;">Help</button>
     <button id="btn-disclaimer" style="padding:4px 10px;cursor:pointer;background:#3a2a4a;color:#eee;border:1px solid #5a4a6a;border-radius:4px;">Disclaimer</button>
