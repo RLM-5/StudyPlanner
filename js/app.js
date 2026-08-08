@@ -1041,14 +1041,7 @@ async function init() {
 
   const data = await tryAutoLoad();
   if (data) {
-    applyLoadedData(data);
-    try {
-      lastUploadSnapshot = JSON.parse(JSON.stringify(buildSavePayload()));
-      undoStack = [JSON.stringify(lastUploadSnapshot)];
-      redoStack = [];
-      updateUndoRedoButtons();
-    } catch (_) {}
-    scrollToCoursesCenter();
+    commitPlannerLoad(data);
   } else {
     showUploadPrompt();
   }
@@ -2864,25 +2857,40 @@ function setupEventListeners() {
   });
 
   // ---- Upload / Save ----
-  document.getElementById('catalog-select').addEventListener('change', async (event) => {
+  document.getElementById('pre-set-select').addEventListener('change', async (event) => {
     const selectedPath = event.target.value; // e.g., "data/NP.json"
     if (!selectedPath) return;
 
-    // Extract just the filename (e.g., "NP.json") from the path
-    const fileName = selectedPath.split('/').pop();
+    // file:// (opened directly from disk) cannot fetch sibling JSON — browser security
+    if (window.location.protocol === "file:") {
+      alert(
+        "Pre-set selection requires the site to be served over HTTP " +
+        "(e.g. python3 -m http.server, or GitHub Pages).\n\n" +
+        "When the HTML file is opened directly from a folder, use the " +
+        "Upload button instead and choose the JSON file manually."
+      );
+      return;
+    }
 
     try {
       const response = await fetch(selectedPath);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
+
       const parsedData = await response.json();
-      
-      // Register the dataset using your app's actual function!
+
+      // Register so parent resolution / multi-file logic can find it by basename
+      const fileName = selectedPath.split("/").pop();
       registerLocalJson(fileName, parsedData);
 
+      await loadPlannerFromParsed(parsedData);
     } catch (error) {
-      console.error('Failed to load dataset:', error);
-      alert('Failed to load the selected dataset.');
+      console.error("Failed to load dataset:", error);
+      alert(
+        "Failed to load the selected dataset.\n\n" +
+        error.message +
+        "\n\nIf you opened the page directly from a folder (file://), " +
+        "pre-set loading does not work — use the Upload button instead."
+      );
     }
   });
 
@@ -2932,20 +2940,10 @@ function setupEventListeners() {
 
       parsedList.sort((a, b) => score(b) - score(a));
       const primary = parsedList[0].data;
-      const resolved = await resolveCoursePayload(primary);
-
-      if (resolved && resolved._missingParents && resolved._missingParents.length) {
-        alert("You must load any *.catalog.json first; after that other JSON files will work.");
-      }
-
-      applyLoadedData(resolved);
-      try {
-        lastUploadSnapshot = JSON.parse(JSON.stringify(buildSavePayload()));
-        undoStack = [JSON.stringify(lastUploadSnapshot)];
-        redoStack = [];
-        updateUndoRedoButtons();
-      } catch (_) {}
-      scrollToCoursesCenter();
+      await loadPlannerFromParsed(primary, {
+        missingParentsMsg:
+          "You must load any *.catalog.json first; after that other JSON files will work."
+      });
     } catch (err) {
       alert("Failed to read JSON file:\n" + err.message);
     }
@@ -3137,6 +3135,49 @@ function openTrackColorMenu(e, tag) {
 /* ============================================================
    SAVE / LOAD HELPERS
    ============================================================ */
+
+/**
+ * Apply a resolved course payload to the planner and set the Undo / Reset baseline.
+ * Shared by pre-set select, file Upload, and auto-load so behaviour stays identical.
+ *
+ * @param {object|array} resolved - result of resolveCoursePayload (or plain array / {courses})
+ * @param {{ missingParentsMsg?: string, scroll?: boolean }} [opts]
+ *   missingParentsMsg – alert text when resolved._missingParents is non-empty
+ *   scroll – if not false, call scrollToCoursesCenter() after apply
+ */
+function commitPlannerLoad(resolved, opts) {
+  opts = opts || {};
+  if (!resolved) return;
+  if (resolved._missingParents && resolved._missingParents.length) {
+    alert(
+      opts.missingParentsMsg ||
+        ("Some parent catalogue files could not be loaded.\nMissing: " +
+          resolved._missingParents.join(", "))
+    );
+  }
+  applyLoadedData(resolved);
+  try {
+    lastUploadSnapshot = JSON.parse(JSON.stringify(buildSavePayload()));
+    undoStack = [JSON.stringify(lastUploadSnapshot)];
+    redoStack = [];
+    updateUndoRedoButtons();
+  } catch (_) {}
+  if (opts.scroll !== false) scrollToCoursesCenter();
+}
+
+/**
+ * Resolve parents / merge, then commitPlannerLoad.
+ * Shared entry for any already-parsed JSON (fetch or FileReader).
+ *
+ * @param {object|array} primary - raw parsed JSON (layout, config, or course array)
+ * @param {{ missingParentsMsg?: string, scroll?: boolean }} [opts]
+ * @returns {Promise<object|array>} the resolved payload
+ */
+async function loadPlannerFromParsed(primary, opts) {
+  const resolved = await resolveCoursePayload(primary);
+  commitPlannerLoad(resolved, opts);
+  return resolved;
+}
 
 /**
  * Build a complete JSON payload that can be re-loaded later.
