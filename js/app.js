@@ -2867,7 +2867,8 @@ function setupEventListeners() {
         "Pre-set selection requires the site to be served over HTTP " +
         "(e.g. python3 -m http.server, or GitHub Pages).\n\n" +
         "When the HTML file is opened directly from a folder, use the " +
-        "Upload button instead and choose the JSON file manually."
+        "Upload button instead and choose the JSON file manually." + 
+        "Default JSON files are located in 'directory where index.html is'/data"
       );
       return;
     }
